@@ -1,0 +1,18 @@
+{% extends "itregistration/base.html" %}
+{% block content %}
+<h1>Module Registration Service</h1>
+
+{% for module in module %}
+<article class="media content-section">
+    <div class="media-body">
+        <div class="article-metadata">
+            <a class="mr-2" href="#">{{ module.author.profile }}</a>
+            <small class="text-muted">{{ module.date_submitted}}</small>
+        </div>
+        <h2><a class="article-title" href="#">{{ module }}</a></h2>
+        <p class="article-content">{{ module.details }}</p>
+    </div>
+</article>
+{% endfor %}
+
+{% endblock content %}
