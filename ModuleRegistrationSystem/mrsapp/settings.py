@@ -134,7 +134,7 @@ CRISPY_ALLOWED_TEMPLATE_PACK = 'bootstrap4'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # Authentication
-LOGIN_REDIRECT_URL = 'itreporting:home'
+LOGIN_REDIRECT_URL = 'itregistration:home'
 LOGIN_URL = 'login'
 
 
