@@ -1,25 +1,16 @@
 {% extends "itregistration/base.html" %}
 {% block content %}
-<h1>Module Registration Service</h1>
-
-{% if request.user.is_superuser %}
-<article class="media content-section">
-    <div>
-        <p class="article-content">Hello, {{ user.username }}, would you like to create a module?</p>
-        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'itregistration:modules_create' %}">Create Module</a>
-    </div>
-</article>
-{% endif %}
+<h1>Modules by {{ view.kwargs.username }} {% if is_paginated %}(page {{page_obj.number}} of {{page_obj.paginator.num_pages}}){% endif %}</h1>
 
 {% for module in modules %}
 <article class="media content-section">
     <img class="rounded-circle article-img" src="{{ issue.author.profile.image.url }}" />
     <div class="media-body">
         <div class="article-metadata">
-            <a class="mr-2" href="{% url 'itregistration:user_modules' module.author.username %}">{{ module.author.username }}</a>
+            <a class="mr-2">{{ module.author.username }}</a>
             <small class="text-muted">{{ module.date_submitted}}</small>
         </div>
-        <h2><a class="article-title" href="{% url 'itregistration:modules_detail' module.moduleid %}">{{ module.modulename }}</a></h2>
+        <h2><a class="article-title" href="{% url 'itregistration:module_detail' module.moduleid %}">{{ module.modulename }}</a></h2>
         <p class="article-content">{{ module.description }}</p>
     </div>
 </article>

@@ -56,16 +56,8 @@
 
             {% block content %}{% endblock %}
         </div>
-        <div class="col-md-4">
-            <div class="content-section">
-                <h3>Courses</h3>
-                <p class='text-muted'>Here you can see all of our available courses.
-                    <ul class="list-group">
-                        <li class="list-group-item list-group-item-light">test</li>
-                    </ul>
-                </p>
-            </div>
-        </div>
+        {% block sidebar %}
+        {% endblock %}
     </div>
 </div>
 
