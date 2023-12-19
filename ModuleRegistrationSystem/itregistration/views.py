@@ -6,6 +6,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.views.generic import View
 
+from .forms import ContactForm
+from django.views.generic.edit import FormView
+from django.contrib import messages
 
 def superuser_required():
     def wrapper(wrapped):
@@ -20,8 +23,26 @@ def superuser_required():
 def about(request):
     return render(request, 'itregistration/about.html', {'title':'About Us'})
 
-def contact(request):
-    return render(request, 'itregistration/contact.html', {'title':'Contact Us'})
+class ContactFormView(FormView):
+    form_class = ContactForm
+    template_name  = 'itregistration/contact.html'
+    def get_context_data(self, **kwargs):
+        context = super(ContactFormView, self).get_context_data(**kwargs)
+        context.update({'title':'Contact Us'})
+        return context
+    
+    def form_valid(self,form):
+        form.send_mail()
+        messages.success(self.request, 'Successfully sent the enquiry')
+        return super().form_valid(form)
+
+    def form_invalid(self,form):
+        messages.warning(self.request, 'Unable to send the enquiry')
+        return super().form_invalid(form)
+        
+    def get_success_url(self):
+        return self.request.path
+
 
 def modules(request):
     module = {'modules':Module.objects.all(), 'title': 'Modules'}

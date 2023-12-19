@@ -1,10 +1,18 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Student Registration Services - Contact</title>
-    </head>
+{% extends "itregistration/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<h1><br /> <b style="color:#5f788a;">MRS Contact Support</b></h1>
 
-    <body>
-        <h1>You currently cannot contact the SMRS.</h1>
-    </body>
-</html>
+<div class = "content-section">
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Contact us.</legend>
+            {{ form | crispy }}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-info" type="submit">Submit</button>
+        </div>
+    </form>
+</div>
+{% endblock content %}

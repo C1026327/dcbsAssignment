@@ -1,13 +1,13 @@
 from django.urls import path
 from . import views
-from .views import PostListView, PostDetailView, PostCreateView, PostUpdateView, PostDeleteView, UserPostListView, CourseListView
+from .views import PostListView, PostDetailView, PostCreateView, PostUpdateView, PostDeleteView, UserPostListView, CourseListView, ContactFormView
 
 app_name = 'itregistration'
 urlpatterns = [
 
     path('', CourseListView.as_view(), name='home'),
     path('about', views.about, name='about'),
-    path('contact', views.about, name='contact'),
+    path('contact', ContactFormView.as_view(), name='contact'),
     path('modules', PostListView.as_view(), name='modules'),
     path('modules/<int:pk>', PostDetailView.as_view(), name='modules_detail'),
     path('modules/new', PostCreateView.as_view(), name='modules_create'),
