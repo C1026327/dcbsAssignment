@@ -9,11 +9,12 @@ from .models import Profile
 
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField(label='Email Address', help_text= 'Your SHU email address. (i.e. A123465)')
-    dob = forms.DateField(label = 'Date of Birth')
+    dob = forms.DateField(label='Date of Birth', widget=forms.widgets.DateInput(attrs={'type': 'date', 'placeholder': 'yyyy-mm-dd (DOB)', 'class': 'form-control'}))
+
 
     class meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'dob', 'email', 'country', 'city', 'password1', 'password2']
+        fields = ['username', 'first_name', 'last_name', 'dob', 'country', 'city', 'email', 'password1', 'password2']
 
 class UserUpdateForm(forms.ModelForm):
     email = forms.EmailField()

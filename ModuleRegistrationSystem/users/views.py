@@ -8,21 +8,23 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here. - Keep code out of libraries.
 
-@login_required
 def register(request):
-    if request.method == 'POST':
+    if request.method=='POST':
         form = UserRegisterForm(request.POST)
-        
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            messages.success(request, f'Account created for {username}!')
+            messages.success(request, f'Account created for {username}, now you can login!')
             return redirect('login')
-
         else:
             messages.warning(request, 'Unable to create account!')
-    return redirect('itregistration:home')
+        return redirect('itregistration:home')
+    else:
+        form=UserRegisterForm()
+        return render(request,'users/register.html',{'form':form, 'title':'Student Registration'})
 
+
+@login_required
 def profile(request):
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance = request.user)

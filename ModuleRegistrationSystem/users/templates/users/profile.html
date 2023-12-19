@@ -22,6 +22,17 @@
                 <button class="btn btn-outline-info" type="submit">Register</button>
             </div>
         </form>
+        <article class="media content-section">
+            <img class="rounded-circle article-img" src="{{ issue.author.profile.image.url }}" />
+            <div class="media-body">
+                <div class="article-metadata">
+                    <a class="mr-2" href="#">{{ Registration.module.author.profile }}</a>
+                    <small class="text-muted">{{ Registration.module.date_submitted}}</small>
+                </div>
+                <h2><a class="article-title" href="#">{{ Registration.module }}</a></h2>
+                <p class="article-content">{{ Registration.module.description }}</p>
+            </div>
+        </article>
     </div>
 
 {% endblock content %}

@@ -1,0 +1,22 @@
+{% extends "itregistration/base.html" %}
+{% block content %}
+<h1>Module Registration Service</h1>
+
+<h2 class="article-title">{{ object.modulename }} </h2>
+<article class="media content-section">
+    <img class="rounded-circle article-img" src="{{object.author.profile.image.url }}"/>
+    <div class="media-body">
+        <div class="article-metadata">
+            <a class="mr-2" href="#">{{ object.author }}</a>
+            <small class="text-muted">{{ object.date_submitted}}</small>
+        </div>
+        <h2><a class="article-title" href="#">{{ object.modulename }}</a></h2>
+        <p class="article-content">{{ object.details }}</p>
+        {% if object.author == user %}
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'itregistration:module-update' object.id %}">Update</a>
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'itregistration:module-delete' object.id %}">Delete</a>
+        {% endif %}
+    </div>
+</article>
+
+{% endblock content %}
