@@ -1,4 +1,5 @@
 {% extends "itregistration/base.html" %}
+{% load crispy_forms_tags %}
 {% block content %}
 
     <div class="content-section">
@@ -22,17 +23,18 @@
                 <button class="btn btn-outline-info" type="submit">Register</button>
             </div>
         </form>
+        {% for registration in registrations %}
         <article class="media content-section">
-            <img class="rounded-circle article-img" src="{{ issue.author.profile.image.url }}" />
             <div class="media-body">
                 <div class="article-metadata">
-                    <a class="mr-2" href="#">{{ Registration.module.author.profile }}</a>
-                    <small class="text-muted">{{ Registration.module.date_submitted}}</small>
+                    <a class="mr-2" href="{% url 'itregistration:user_modules' registraion.module.author.username %}">{{ registration.module.author.username }}</a>
+                    <small class="text-muted">{{ registration.module.date_submitted}}</small>
                 </div>
-                <h2><a class="article-title" href="#">{{ Registration.module }}</a></h2>
-                <p class="article-content">{{ Registration.module.description }}</p>
+                <h2><a class="article-title" href="{% url 'itregistration:modules_detail' registration.module.moduleid %}">{{ registration.module.modulename }}</a></h2>
+                <p class="article-content">{{ registration.module.description }}</p>
             </div>
         </article>
+        {% endfor %}
     </div>
 
 {% endblock content %}

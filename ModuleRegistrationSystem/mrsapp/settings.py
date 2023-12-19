@@ -41,10 +41,13 @@ INSTALLED_APPS = [
     'itregistration.apps.ItregistrationConfig',
     'users.apps.UsersConfig',
 
+    'api.apps.ApiConfig',
+
     'crispy_forms',
     'crispy_bootstrap4',
 
-    'rest_framework'
+    'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -138,11 +141,17 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_REDIRECT_URL = 'itregistration:home'
 LOGIN_URL = 'login'
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+}
 
 # Profile Images
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
 
+# gmail Emails for Contact Page
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
