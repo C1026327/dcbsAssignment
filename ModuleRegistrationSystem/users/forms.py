@@ -18,10 +18,11 @@ class UserRegisterForm(UserCreationForm):
 
 class UserUpdateForm(forms.ModelForm):
     email = forms.EmailField()
+    dob = forms.DateField(label='Date of Birth', widget=forms.widgets.DateInput(attrs={'type': 'date', 'placeholder': 'yyyy-mm-dd (DOB)', 'class': 'form-control'}))
     
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email']
+        fields = ['first_name', 'last_name', 'email', 'dob', 'country', 'city',]
     
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
