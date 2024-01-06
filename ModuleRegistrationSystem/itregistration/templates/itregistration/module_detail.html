@@ -1,4 +1,5 @@
 {% extends "itregistration/base.html" %}
+{% load crispy_forms_tags %}
 {% block content %}
 <h1>Module Registration Service</h1>
 
@@ -12,9 +13,28 @@
         </div>
         <h2>{{ object.modulename }}</h2>
         <p class="article-content">{{ object.details }}</p>
-        {% if object.author == user %}
+        {% if object.author == user or user.is_superuser %}
             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'itregistration:modules_update' object.moduleid %}">Update</a>
             <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'itregistration:modules_delete' object.moduleid %}">Delete</a>
+        {% endif %}
+
+        {% if user.is_authenticated %}  
+
+            {% if module.available == True %}
+                <form method="POST" action = "{% url 'itregistration:moduleregistration' module.moduleid %}">
+                {% csrf_token %}
+                {{ form | crispy }}
+                <button class="btn btn-success" type="submit">Register Now</button>
+                </form>
+
+                <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'itregistration:resignation' module.moduleid %}">Resign</a>
+            {% else %}
+                <a class="mr-2">This course is unavailable.</a>
+            {% endif %}
+        
+        {% else %}
+            <a class="mr-2">You cannot register for a module without an account.</a>
+            <a class="ml-2" href="{% url 'login' %}">Login</a>
         {% endif %}
     </div>
 </article>

@@ -10,6 +10,8 @@ from .models import Profile
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField(label='Email Address', help_text= 'Your SHU email address. (i.e. A123465)')
     dob = forms.DateField(label='Date of Birth', widget=forms.widgets.DateInput(attrs={'type': 'date', 'placeholder': 'yyyy-mm-dd (DOB)', 'class': 'form-control'}))
+    country = forms.CharField(max_length = 100)
+    city = forms.CharField(max_length = 100)
 
 
     class meta:
@@ -19,6 +21,8 @@ class UserRegisterForm(UserCreationForm):
 class UserUpdateForm(forms.ModelForm):
     email = forms.EmailField()
     dob = forms.DateField(label='Date of Birth', widget=forms.widgets.DateInput(attrs={'type': 'date', 'placeholder': 'yyyy-mm-dd (DOB)', 'class': 'form-control'}))
+    country = forms.CharField(max_length = 100)
+    city = forms.CharField(max_length = 100)
     
     class Meta:
         model = User

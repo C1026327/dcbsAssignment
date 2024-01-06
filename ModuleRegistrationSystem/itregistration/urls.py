@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import PostListView, PostDetailView, PostCreateView, PostUpdateView, PostDeleteView, UserPostListView, CourseListView, ContactFormView
+from .views import PostListView, PostDetailView, PostCreateView, PostUpdateView, PostDeleteView, UserPostListView, CourseListView, ContactFormView, ModuleRegistration, modulewithdrawl
 
 app_name = 'itregistration'
 urlpatterns = [
@@ -13,5 +13,7 @@ urlpatterns = [
     path('modules/new', PostCreateView.as_view(), name='modules_create'),
     path('modules/<int:pk>/update', PostUpdateView.as_view(), name='modules_update'),
     path('modules/<int:pk>/delete',PostDeleteView.as_view(), name='modules_delete'),
-    path('issue/<str:username>', UserPostListView.as_view(), name='user_modules'),
+    path('modules/<str:username>', UserPostListView.as_view(), name='user_modules'),
+    path('modules/<int:pk>/registration', ModuleRegistration, name='moduleregistration'),
+    path('modules/<int:pk>/resignation', modulewithdrawl.as_view(), name='resignation')
 ]

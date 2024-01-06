@@ -1,12 +1,13 @@
-from django.shortcuts import render, get_object_or_404
-from .models import Module, Course
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Module, Course, Registration
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.models import User
 from django.views.generic import View
 
-from .forms import ContactForm
+from .forms import ContactForm, ModuleRegForm
 from django.views.generic.edit import FormView
 from django.contrib import messages
 
@@ -98,3 +99,27 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         module = self.get_object()
         return self.request.user == module.author
+
+def ModuleRegistration(request,pk):
+    module = get_object_or_404(Module, moduleid=pk)
+    if request.method=="POST":
+        form = ModuleRegForm(request.POST)
+        if form.is_valid():
+            reg=form.save(commit=False)
+            reg.module = module
+            reg.student = request.user
+            reg.save()
+            messages.success(request, f"You have successfully registered for the module.")
+            return redirect('/modules')
+        else:
+            messages.warning(request, f"Something went wrong.")
+            print(f"Form Errors: {form.errors}")
+    else:
+        form=ModuleRegForm()
+    return redirect('/modules')
+
+class modulewithdrawl(SuccessMessageMixin, DeleteView):
+    model = Registration
+    success_message = "You have successfully resigned from the module."
+    def get_success_url(self):
+        return reverse('modules')
