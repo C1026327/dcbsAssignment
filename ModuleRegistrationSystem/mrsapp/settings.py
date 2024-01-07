@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-74xb01si-wd9wi4&wi(9_y*%xr+x3o(w(ix5$c3)w^8gm8favf'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost']
 
 
 # Application definition
@@ -48,6 +48,8 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'rest_framework.authtoken',
+
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -84,13 +86,23 @@ WSGI_APPLICATION = 'mrsapp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'itdb',
+        'PORT': '3306',
+        'HOST': 'c1026327dcbs.mysql.database.azure.com',
+        'USER': 'c1026327',
+        'PASSWORD': 'Password123',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -126,7 +138,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+# STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -148,8 +160,9 @@ REST_FRAMEWORK = {
 }
 
 # Profile Images
-MEDIA_ROOT = BASE_DIR / 'media'
-MEDIA_URL = '/media/'
+
+# MEDIA_ROOT = BASE_DIR / 'media'
+# MEDIA_URL = '/media/'
 
 # gmail Emails for Contact Page
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
@@ -158,3 +171,11 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'notallowedsmtp@gmail.com'
 EMAIL_HOST_PASSWORD = 'yaji ustk weuy blvo'
+
+# Azure Compatibility
+
+DEFAULT_FILE_STORAGE = 'mrsapp.storages.AzureMediaStorage'
+STATICFILES_STORAGE = 'mrsapp.storages.AzureStaticStorage'
+
+STATIC_URL = 'c1026327storaccount.blob.core.windows.net/static/'
+MEDIA_URL = 'c1026327storaccount.blob.core.windows.net/media/'
