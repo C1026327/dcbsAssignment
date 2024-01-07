@@ -9,7 +9,6 @@ click==8.0.3
 colorama==0.4.4
 crispy-bootstrap4==2023.1
 cryptography==3.4.8
-dbus-python==1.2.18
 Django==4.2
 django-crispy-forms==2.1
 django-rest-framework==0.1.0
