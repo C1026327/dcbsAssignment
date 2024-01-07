@@ -26,10 +26,7 @@ jobs:
         run: |
           python -m venv venv
           source venv/bin/activate
-
-      - name: Update Pip
-        run: pip install --upgrade pip
-        
+      
       - name: Install dependencies
         run: pip install -r requirements.txt
         
@@ -69,4 +66,4 @@ jobs:
         with:
           app-name: 'StudentApp'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_E159E74122274D43BC42D656834E65B3 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_C30E8943FB9B44D7B2327E3D35FB23DD }}
