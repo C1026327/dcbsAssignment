@@ -10,11 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+WEBSITE_HOSTNAME = os.environ.get('WEBSITE_HOSTNAME', None)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -23,10 +24,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-74xb01si-wd9wi4&wi(9_y*%xr+x3o(w(ix5$c3)w^8gm8favf'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = WEBSITE_HOSTNAME == None
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = [] if DEBUG else [WEBSITE_HOSTNAME]
 
+if not DEBUG:
+    CSRF_TRUSTED_ORIGINS = [f'https://{WEBSITE_HOSTNAME}']
 
 # Application definition
 
